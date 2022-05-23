@@ -1,0 +1,63 @@
+import express, { Application } from 'express';
+import cors from 'cors';
+import { Routes } from './api/api';
+import dotenv from 'dotenv';
+import errorMiddleware from './middleware/error.middleware';
+import { logger } from './logger/winston';
+
+import { https } from 'firebase-functions'
+import admin, { ServiceAccount } from 'firebase-admin';
+
+import serviceAccount from '../firebase.key.json';
+
+dotenv.config();
+
+class App {
+
+  private app: Application;
+  private mongoUrl: string = process.env.DB_URI || 'mongodb://localhost:27017/safe-CV';
+  private PORT: string = process.env.PORT || '3005';
+  private routes: Routes = new Routes();
+
+
+  private allowlist = process.env.CLIENTS?.split(" ") || ["https://safe-cv-validador-web.herokuapp.com"];
+
+  private corsOptions = {
+    origin: this.allowlist,
+    optionsSuccessStatus: 200
+  }
+
+  constructor() {
+    
+
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount as ServiceAccount),
+      databaseURL: "https://arvorah-homologacao-default-rtdb.firebaseio.com"
+    });
+    this.app = express();
+    this.config();
+    // mongoSetup(this.mongoUrl);
+    this.routes.routes(this.app);
+    this.configError();
+    https.onRequest(this.app);
+    this.startServer(this.app, this.PORT);
+  }
+
+  private config(): void {
+    this.app.use(cors(this.corsOptions));
+    this.app.use(express.json({ limit: '50mb' }));
+    this.app.use(express.urlencoded({ limit: '50mb' }));
+  }
+
+  private configError(): void {
+    this.app.use(errorMiddleware);
+  }
+
+  private startServer(app: Application, PORT: string): void {
+    app.listen(process.env.PORT || '3005', () => {
+      logger.info('Express server listening on port ' + PORT);
+    });
+  }
+}
+
+export default new App();
