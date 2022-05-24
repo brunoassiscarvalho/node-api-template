@@ -27,14 +27,14 @@
         "suppressWhileTypeErrorsPresent": false
       }
     ],
-    "paths": {
-      "@src/*": ["./src/*"],
-      "@test/*": ["./test/*"]
-    },
+    // "paths": {
+    //   "@src/*": ["./src/*"],
+    //   "@test/*": ["./test/*"]
+    // },
     "rootDirs": ["./src", "./test"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["./src/**/*.ts", "./test/**/*.ts", "custom.d.ts"],
+  "include": ["./src/**/*.ts", "./test/**/*.ts", "./src/**/*.hbs", "custom.d.ts"],
   "exclude": ["./node_modules/*", "dist"]
 }

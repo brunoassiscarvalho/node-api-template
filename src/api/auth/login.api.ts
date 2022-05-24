@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction, Application } from 'express';
-import AuthOperatorController from './auth.operator.controller';
+import LoginController from './login.controller';
 
-export class AuthOperatorApi {
-  private defaultPath = '/auth';
+export class LoginApi {
+  private defaultPath = '/login';
 
-  public authController: AuthOperatorController = new AuthOperatorController();
+  public authController: LoginController = new LoginController();
 
   public routes(app: Application): void {
     app.post(
@@ -12,7 +12,7 @@ export class AuthOperatorApi {
       async (req: Request, res: Response, next: NextFunction) => {
         try {
           this.authController
-            .authenticate(req)
+            .login(req)
             .then((result) => {
               res.json(result);
               next();

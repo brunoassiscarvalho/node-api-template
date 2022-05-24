@@ -2,13 +2,20 @@
 import { createTransport } from 'nodemailer';
 import hbs from 'nodemailer-express-handlebars';
 import path from 'path';
+import { Configurations } from '../core/configurations';
 import BusinessException from '../exceptions/BusinessException';
-import { logger } from '../logger/winston';
 
-export default class MailController {
+
+interface IVerificationEmail {
+  userEmail: string, userName: string, link: string
+}
+
+export default class EMailController {
+
+  private configurations = new Configurations();
 
   private pathViews = './views/'
-  private pathTemplates = path.resolve(__dirname, this.pathViews)  
+  private pathTemplates = path.resolve(__dirname, this.pathViews)
   private hbsConfig = {
     viewEngine: {
       extName: '.hbs',
@@ -21,32 +28,38 @@ export default class MailController {
   private transporter = createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS
+      user: this.configurations.EMAIL.user,
+      pass: this.configurations.EMAIL.pass
     }
   })
 
-  public sendMailTemplate({ to, subject, template, context }: any) {
+
+  private sendMailTemplate({ to, subject, template, context }: any) {
     const email = {
-      from: process.env.MAIL_USER,
+      from: this.configurations.EMAIL.user,
       to,
-      subject: 'Curriculum Seguro - ' + subject,
-      template,
-      attachments: [{
-        filename: 'shadow-logotype.png',
-          path: __dirname +'/views/shadow-logotype.png',
-         cid: 'shadow-logotype'
-  }],
+      subject: this.configurations.APP.name +" - " + subject,
+      template,    
       context
     }
 
     this.transporter.use('compile', hbs(this.hbsConfig))
     this.transporter.sendMail(email, (err, info) => {
       if (err) {
-        logger.error("email err", err)
-        throw new BusinessException("não foi possível enviar o email")
+        throw new BusinessException("não foi possível enviar o email", err)
       }
       return info
+    })
+  }
+
+
+  public sendVerificationEmail({ userEmail, userName, link }: IVerificationEmail): void {
+    const appDisplayName = this.configurations.APP.name;
+    return this.sendMailTemplate({
+      to: userEmail,
+      subject: `${appDisplayName} - sua conta foi criada com sucesso`,
+      template: 'welcomeMailConfirmation',
+      context: { appDisplayName, userName, link, logoUrl:  this.configurations.APP.logoUrl}
     })
   }
 }

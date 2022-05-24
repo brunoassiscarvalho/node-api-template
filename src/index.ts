@@ -4,11 +4,12 @@ import { Routes } from './api/api';
 import dotenv from 'dotenv';
 import errorMiddleware from './middleware/error.middleware';
 import { logger } from './logger/winston';
-
+import { initializeApp } from "firebase/app";
 import { https } from 'firebase-functions'
 import admin, { ServiceAccount } from 'firebase-admin';
 
 import serviceAccount from '../firebase.key.json';
+import { Configurations } from './core/configurations';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ class App {
   private mongoUrl: string = process.env.DB_URI || 'mongodb://localhost:27017/safe-CV';
   private PORT: string = process.env.PORT || '3005';
   private routes: Routes = new Routes();
+  private firebaseConfig = new Configurations();
 
 
   private allowlist = process.env.CLIENTS?.split(" ") || ["https://safe-cv-validador-web.herokuapp.com"];
@@ -27,19 +29,20 @@ class App {
     optionsSuccessStatus: 200
   }
 
-  constructor() {
-    
+  constructor() {   
 
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount as ServiceAccount),
       databaseURL: "https://arvorah-homologacao-default-rtdb.firebaseio.com"
     });
+    initializeApp(this.firebaseConfig.FIREBASE);
     this.app = express();
     this.config();
     // mongoSetup(this.mongoUrl);
+    https.onRequest(this.app);
     this.routes.routes(this.app);
     this.configError();
-    https.onRequest(this.app);
+    
     this.startServer(this.app, this.PORT);
   }
 
