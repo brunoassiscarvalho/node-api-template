@@ -1,10 +1,14 @@
-import HttpException from '../exceptions/HttpException';
-import { Request, Response, NextFunction } from 'express';
-import UnauthorizedException from '../exceptions/UnauthorizedException';
+import HttpException from "../exceptions/HttpException";
+import { Request, Response, NextFunction } from "express";
+import UnauthorizedException from "../exceptions/UnauthorizedException";
 
 // const operatorController: OperatorController = new OperatorController();
 
-export const authorize = async (req: Request, _res: Response, next: NextFunction) => {
+export const authorize = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
   // operatorController
   //   .authorize(req)
   //   .then(() => {
@@ -13,7 +17,11 @@ export const authorize = async (req: Request, _res: Response, next: NextFunction
   //   .catch((e:Error) => next(new UnauthorizedException(e.message)));
 };
 
-export const authorizeOperator = async (req: Request, _res: Response, next: NextFunction) => {
+export const authorizeOperator = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
   // operatorController
   //   .authorizeOperator(req)
   //   .then(() => {
@@ -22,8 +30,11 @@ export const authorizeOperator = async (req: Request, _res: Response, next: Next
   //   .catch((e:Error) => next(new UnauthorizedException(e.message)));
 };
 
-
-export const autorizeOperatorByProfile = async (req: Request, _res: Response, next: NextFunction) => {
+export const autorizeOperatorByProfile = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
   // operatorController
   //   .autorizeOperatorByProfile(req)
   //   .then(() => {
@@ -32,8 +43,11 @@ export const autorizeOperatorByProfile = async (req: Request, _res: Response, ne
   //   .catch((e:Error) => next(new HttpException(403, e.message)));
 };
 
-
-export const autorizeAdministrator = async (req: Request, _res: Response, next: NextFunction) => {
+export const autorizeAdministrator = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
   // operatorController
   //   .autorizeAdministrator(req)
   //   .then(() => {
@@ -42,7 +56,11 @@ export const autorizeAdministrator = async (req: Request, _res: Response, next: 
   //   .catch((e:Error) => next(new HttpException(403, e.message)));
 };
 
-export const autorizeMaster = async (req: Request, _res: Response, next: NextFunction):Promise<any> => {
+export const autorizeMaster = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+): Promise<any> => {
   // operatorController
   //   .autorizeMaster(req)
   //   .then(() => {

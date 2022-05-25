@@ -1,13 +1,11 @@
-import BusinessException from '../../exceptions/BusinessException';
-import { Request } from 'express';
-import { auth } from 'firebase-admin';
-import { UserRecord } from 'firebase-functions/v1/auth';
-import EMailController from '../../email/email.controller';
+import BusinessException from "../../exceptions/BusinessException";
+import { Request } from "express";
+import { auth } from "firebase-admin";
+import { UserRecord } from "firebase-functions/v1/auth";
+import EMailController from "../../email/email.controller";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-
 export default class UsesrController {
-
   private mailController: EMailController;
 
   constructor() {
@@ -15,22 +13,35 @@ export default class UsesrController {
   }
 
   public async getUsers(): Promise<string> {
-    return "Servidor Funcionado!"
+    return "Servidor Funcionado!";
   }
 
   public async createUser(req: Request): Promise<UserRecord> {
     const { email, password } = req.body;
     try {
-      const user: UserRecord = await auth().createUser({ email, password, emailVerified: false });
+      const user: UserRecord = await auth().createUser({
+        email,
+        password,
+        emailVerified: false,
+      });
       try {
-        const link: string = await auth().generateEmailVerificationLink(email, { url: 'https://localhost:3000' })
-        await this.mailController.sendVerificationEmail({ userEmail: email, userName: "fsdadsfasdf", link });
+        const link: string = await auth().generateEmailVerificationLink(email, {
+          url: "https://localhost:3000",
+        });
+        await this.mailController.sendVerificationEmail({
+          userEmail: email,
+          userName: "fsdadsfasdf",
+          link,
+        });
       } catch (error) {
-        throw new BusinessException('Não foi possível enviar o email de confirmação', error);
+        throw new BusinessException(
+          "Não foi possível enviar o email de confirmação",
+          error
+        );
       }
-      return user
+      return user;
     } catch (error) {
-      throw new BusinessException('Não foi possível criar o usuário', error);
+      throw new BusinessException("Não foi possível criar o usuário", error);
     }
   }
 
@@ -38,12 +49,20 @@ export default class UsesrController {
     const { email, password } = req.body;
     try {
       await signInWithEmailAndPassword(getAuth(), email, password);
-      const link: string = await auth().generateEmailVerificationLink(email, { url: 'https://localhost:3000' })
-      await this.mailController.sendVerificationEmail({ userEmail: email, userName: "fsdadsfasdf", link });
-      return "deu certo"
+      const link: string = await auth().generateEmailVerificationLink(email, {
+        url: "https://localhost:3000",
+      });
+      await this.mailController.sendVerificationEmail({
+        userEmail: email,
+        userName: "fsdadsfasdf",
+        link,
+      });
+      return "deu certo";
     } catch (error) {
-      throw new BusinessException('Não foi possível enviar o email de confirmação', error);
+      throw new BusinessException(
+        "Não foi possível enviar o email de confirmação",
+        error
+      );
     }
   }
-
 }

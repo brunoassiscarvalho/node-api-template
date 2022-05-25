@@ -1,12 +1,14 @@
 export class Configurations {
-
   public APP: any;
-  public FIREBASE:any;
-  public EMAIL: any
+  public FIREBASE: any;
+  public EMAIL: any;
   public MONGO: string;
 
   constructor() {
-    this.APP = {name:process.env.APP_NAME || 'Defina um nome para a aplicação', logoUrl: process.env.APP_LOGO_URL};
+    this.APP = {
+      name: process.env.APP_NAME || "Defina um nome para a aplicação",
+      logoUrl: process.env.APP_LOGO_URL,
+    };
     this.FIREBASE = {
       apiKey: process.env.FIRE_BASE_APIKEY,
       authDomain: process.env.FIRE_BASE_AUTH_DOMAIN,
@@ -19,7 +21,6 @@ export class Configurations {
     };
 
     this.EMAIL = { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS };
-    this.MONGO = process.env.MONGO_DB_URI || '';
-
+    this.MONGO = process.env.MONGO_DB_URI || "";
   }
 }

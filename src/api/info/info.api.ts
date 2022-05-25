@@ -1,9 +1,8 @@
-
-import { Request, Response, NextFunction, Application } from 'express';
-import InfoController from './info.controller';
+import { Request, Response, NextFunction, Application } from "express";
+import InfoController from "./info.controller";
 
 export class InfoApi {
-  private defaultPath = '/info';
+  private defaultPath = "/info";
 
   public infoController: InfoController = new InfoController();
 

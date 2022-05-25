@@ -1,7 +1,9 @@
 # safe-cv-validation-api
+
 Api de serviços safe-cv
 
 # requisitos
+
 instlaar o mongoDB: https://docs.mongodb.com/manual/administration/install-community/
 instalar o nodeJS: https://nodejs.org
 instalar o yarn: https://yarnpkg.com/getting-started/install
@@ -27,11 +29,20 @@ export NPM_TOKEN pegar_NPM_TOKEN_no_heroku
 
 Execute o comando:
 
- yarn start:dev
-
+yarn start:dev
 
 # Comandos diversos
 
 Atualizar as libs do projeto
 
 yarn up:nm
+
+# STARTER PROJECT
+https://khalilstemmler.com/blogs/typescript/node-starter-project/
+
+
+# CODE FORMAT - ESLINT e PRETTIER
+https://eslint.org/docs/user-guide/getting-started
+https://prettier.io/docs/en/install.html
+https://khalilstemmler.com/blogs/typescript/node-starter-project/
+https://www.aleksandrhovhannisyan.com/blog/format-code-on-save-vs-code-eslint/

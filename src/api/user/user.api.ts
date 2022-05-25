@@ -1,10 +1,9 @@
-
-import { Request, Response, NextFunction, Application } from 'express';
-import { isAuthenticated } from '../../middleware/authenticated';
-import UserController from './user.controller';
+import { Request, Response, NextFunction, Application } from "express";
+import { isAuthenticated } from "../../middleware/authenticated";
+import UserController from "./user.controller";
 
 export class UserApi {
-  private defaultPath = '/user';
+  private defaultPath = "/user";
 
   public userController: UserController = new UserController();
 
@@ -37,7 +36,7 @@ export class UserApi {
     );
 
     app.post(
-      this.defaultPath+"/verification-mail",
+      this.defaultPath + "/verification-mail",
       async (req: Request, res: Response, next: NextFunction) => {
         this.userController
           .sendVerificationEmail(req)

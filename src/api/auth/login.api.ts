@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction, Application } from 'express';
-import LoginController from './login.controller';
+import { Request, Response, NextFunction, Application } from "express";
+import LoginController from "./login.controller";
 
 export class LoginApi {
-  private defaultPath = '/login';
+  private defaultPath = "/login";
 
   public authController: LoginController = new LoginController();
 
