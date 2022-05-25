@@ -1,11 +1,12 @@
 import { logger } from "../logger/winston";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import HttpException from "../exceptions/HttpException";
 
 function errorMiddleware(
   error: HttpException,
-  _request: Request,
-  response: Response
+  request: Request,
+  response: Response,
+  next: NextFunction
 ) {
   logger.error(error);
   const status = error.status || 500;
