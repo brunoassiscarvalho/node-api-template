@@ -107,7 +107,7 @@ dist
 
 
 package-lock.json
-yarn.lock
+
 
 firebase.key.json
 .vscode

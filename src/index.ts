@@ -22,7 +22,7 @@ class App {
   private firebaseConfig = new Configurations();
 
 
-  private allowlist = process.env.CLIENTS?.split(" ") || ["https://safe-cv-validador-web.herokuapp.com"];
+  private allowlist = process.env.CLIENTS?.split(" ") || [""];
 
   private corsOptions = {
     origin: this.allowlist,
