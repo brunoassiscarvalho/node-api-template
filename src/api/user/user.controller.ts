@@ -5,6 +5,7 @@ import { UserRecord } from "firebase-functions/v1/auth";
 import EMailController from "../../email/email.controller";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { decodePassAuthorization } from "../../util/Utils";
+import User from "./user";
 
 export default class UsesrController {
   private mailController: EMailController;
@@ -20,12 +21,17 @@ export default class UsesrController {
   public async createUser(req: Request): Promise<UserRecord> {
     const { email, password } = decodePassAuthorization(req.headers);
     const { name, phone, cep } = req.body;
+    if (!name || !phone || !cep)
+      throw new BusinessException("Dados incompletos");
+
     try {
       const user: UserRecord = await auth().createUser({
         email,
         password,
         emailVerified: false,
       });
+      await User.create({ email, name, phone, cep });
+
       try {
         const link: string = await auth().generateEmailVerificationLink(email, {
           url: "https://localhost:3000",

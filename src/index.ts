@@ -7,7 +7,7 @@ import admin, { ServiceAccount } from "firebase-admin";
 import { logger } from "./logger/winston";
 import errorMiddleware from "./middleware/error.middleware";
 import { Routes } from "./api/api";
-
+import startMongo from "./core/dataBase";
 import serviceAccount from "../firebase.key.json";
 import { Configurations } from "./core/configurations";
 
@@ -16,8 +16,8 @@ dotenv.config();
 class App {
   private app: Application;
 
-  private mongoUrl: string =
-    process.env.DB_URI || "mongodb://localhost:27017/safe-CV";
+  // private mongoUrl: string =
+  //   process.env.DB_URI || "mongodb://localhost:27017/safe-CV";
 
   private PORT: string = process.env.PORT || "3005";
 
@@ -33,6 +33,7 @@ class App {
   };
 
   constructor() {
+    startMongo();
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount as ServiceAccount),
       databaseURL: "https://arvorah-homologacao-default-rtdb.firebaseio.com",
@@ -40,7 +41,6 @@ class App {
     initializeApp(this.firebaseConfig.FIREBASE);
     this.app = express();
     this.config();
-    // MongoSetup(this.mongoUrl);
     https.onRequest(this.app);
     this.routes.routes(this.app);
     this.configError();
