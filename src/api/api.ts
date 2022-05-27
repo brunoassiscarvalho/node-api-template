@@ -1,5 +1,5 @@
 import { Application } from "express";
-import { LoginApi } from "./auth/login.api";
+import { LoginApi } from "./login/login.api";
 
 import { InfoApi } from "./info/info.api";
 import { UserApi } from "./user/user.api";

@@ -4,6 +4,7 @@ import { auth } from "firebase-admin";
 import { UserRecord } from "firebase-functions/v1/auth";
 import EMailController from "../../email/email.controller";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { decodePassAuthorization } from "../../util/Utils";
 
 export default class UsesrController {
   private mailController: EMailController;
@@ -17,7 +18,8 @@ export default class UsesrController {
   }
 
   public async createUser(req: Request): Promise<UserRecord> {
-    const { email, password } = req.body;
+    const { email, password } = decodePassAuthorization(req.headers);
+    const { name, phone, cep } = req.body;
     try {
       const user: UserRecord = await auth().createUser({
         email,

@@ -5,12 +5,11 @@ import {
   UserCredential,
 } from "firebase/auth";
 import UnauthorizedException from "../../exceptions/UnauthorizedException";
+import { decodePassAuthorization } from "../../util/Utils";
 
 export default class LoginController {
   public async login(req: Request): Promise<UserCredential> {
-    const { email, password } = this.decodePassAuthorization(
-      req.headers["x-factor"] as string
-    );
+    const { email, password } = decodePassAuthorization(req.headers);
     try {
       const userLogged: UserCredential = await signInWithEmailAndPassword(
         getAuth(),
@@ -23,20 +22,5 @@ export default class LoginController {
     } catch (err) {
       throw new UnauthorizedException("Não foi possível fazer o login", err);
     }
-  }
-
-  private decodePassAuthorization(codedCredential: string) {
-    if (!codedCredential)
-      throw new UnauthorizedException("Autorização não encontrada");
-
-    if (!codedCredential.startsWith("Basic"))
-      throw new UnauthorizedException(
-        "Autorização básica não preenche os requisitos"
-      );
-
-    const [, token] = codedCredential.split(" ");
-    const data = Buffer.from(token, "base64").toString("ascii");
-    const [email, password] = data.split(":");
-    return { email, password };
   }
 }
