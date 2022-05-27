@@ -7,6 +7,7 @@ export interface IUser extends Document {
   phone: string;
   cep: string;
   status: number;
+  role: string;
   createdAt: Date;
 }
 
@@ -17,6 +18,7 @@ export const UserSchema = new Schema<IUser, Model<IUser>, IUser>({
   cep: { type: String, required: true },
   image: { type: String },
   status: { type: Number, default: 0 },
+  role: { type: String },
   createdAt: { type: Date, default: new Date() },
 });
 
