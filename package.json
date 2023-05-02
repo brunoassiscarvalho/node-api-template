@@ -2,12 +2,12 @@
   "name": "@mern-monorepo/node-api-template",
   "version": "0.0.1",
   "description": "",
-  "main": "src/server.ts",
+  "main": "server.js",
   "private": true,
   "scripts": {
     "start": "tsx src/server.ts",
     "dev": "tsx watch src/server.ts",
-    "build": "tsup  src",
+    "build": "tsup",
     "test": "vitest"
   },
   "keywords": [],
