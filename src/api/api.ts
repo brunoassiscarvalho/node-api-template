@@ -1,15 +1,7 @@
-import { Application } from 'express';
+import { FastifyInstance } from 'fastify';
 
-import { InfoApi } from './info/info.api';
+import InfoApi from './info/info.api';
 
-export class Routes {
-  private infoApi: InfoApi;
-
-  constructor() {
-    this.infoApi = new InfoApi();
-  }
-
-  public routes(app: Application): void {
-    this.infoApi.routes(app);
-  }
+export default function routes(app: FastifyInstance): void {
+  app.register(InfoApi);
 }

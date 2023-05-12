@@ -1,23 +1,26 @@
-import { Request, Response, NextFunction, Application } from "express";
-import InfoController from "./info.controller";
+import { RouteShorthandOptions, FastifyPluginAsync } from 'fastify';
+import { getInfos } from "./info.controller"
 
-export class InfoApi {
-  private defaultPath = "/info";
+const routes: FastifyPluginAsync = async (server) => {
+  const defaultPath = '/info';
+  const opts: RouteShorthandOptions = {
+    schema: {
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            pong: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+  };
 
-  public infoController: InfoController = new InfoController();
+  server.get(defaultPath, opts, async function () {
+    return getInfos()
+  });
+};
 
-  public routes(app: Application): void {
-    app.get(
-      this.defaultPath,
-      async (req: Request, res: Response, next: NextFunction) => {
-        this.infoController
-          .getInfos()
-          .then((result) => {
-            res.json(result);
-            next();
-          })
-          .catch((e) => next(e));
-      }
-    );
-  }
-}
+export default routes;
