@@ -1,5 +1,5 @@
 # Base image
-FROM node:14-alpine
+FROM node:18-alpine
 
 # Create a directory for the app
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Expose the port used by the application
-EXPOSE 3005
+EXPOSE 3010
 
 # Set the command to run when the container starts
 CMD ["npm", "start"]
