@@ -8,7 +8,7 @@ const port = 3010;
 
 
 server.get('/', async () => {
-  return { hello: 'world 2' };
+  return { hello: 'world 2 gfdgsg' };
 });
 
 

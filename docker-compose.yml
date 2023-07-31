@@ -4,11 +4,12 @@ services:
   node-app:
     # Build the Node.js app using the Dockerfile in the current directory
     build: .
+    command: npm start
     # Mount the current directory into the container for live code changes during development
     volumes:
-      - .:/app
+      - .:/usr/app
       # Exclude node_modules to prevent container-related issues
-      - /app/node_modules
+      - /usr/app/node_modules
     # Expose the Node.js app port
     ports:
       - '3010:3010'
