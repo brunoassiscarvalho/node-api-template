@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "fastify": "^4.17.0",
+    "fastify-metrics": "^10.3.0",
     "winston": "^3.8.2",
     "zod": "^3.21.4"
   }
