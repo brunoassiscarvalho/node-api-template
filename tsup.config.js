@@ -4,5 +4,5 @@ module.exports = {
   target: 'node14',
   minify: true,
   sourcemap: true,
-  outDir: 'dist'
-}
+  outDir: 'dist',
+};

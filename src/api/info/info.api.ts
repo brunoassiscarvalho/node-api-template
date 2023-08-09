@@ -1,5 +1,5 @@
 import { RouteShorthandOptions, FastifyPluginAsync } from 'fastify';
-import { getInfos } from "./info.controller"
+import { getInfos } from './info.controller';
 
 const routes: FastifyPluginAsync = async (server) => {
   const defaultPath = '/info';
@@ -19,7 +19,7 @@ const routes: FastifyPluginAsync = async (server) => {
   };
 
   server.get(defaultPath, opts, async function () {
-    return getInfos()
+    return getInfos();
   });
 };
 

@@ -38,10 +38,11 @@ Atualizar as libs do projeto
 yarn up:nm
 
 # STARTER PROJECT
+
 https://khalilstemmler.com/blogs/typescript/node-starter-project/
 
-
 # CODE FORMAT - ESLINT e PRETTIER
+
 https://eslint.org/docs/user-guide/getting-started
 https://prettier.io/docs/en/install.html
 https://khalilstemmler.com/blogs/typescript/node-starter-project/

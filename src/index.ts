@@ -1,7 +1,6 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import api from './api/api';
 
-
 const server: FastifyInstance = Fastify({
   logger: {
     transport: {
@@ -14,8 +13,6 @@ const server: FastifyInstance = Fastify({
   },
 });
 const port = 3010;
-
-
 
 server.get('/', async () => {
   return { hello: 'world 2 gfdgsg' };

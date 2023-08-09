@@ -1,6 +1,6 @@
-import { logger } from "../logger/winston";
+import { logger } from '../logger/winston';
 // import { connect } from "mongoose";
-import { Configurations } from "./configurations";
+import { Configurations } from './configurations';
 
 export default function mongoStart(): void {
   // const configurations = new Configurations();
