@@ -22,7 +22,7 @@ const TrekController = () => {
 
   const updateTreks = async (req: Request): Promise<ITrek> => {
     logger.info(`update${req.body._id}`);
-    const trek: ITrek = await Trek.replaceOne({ _id: req.body._id }, req.body).lean();
+    const trek: ITrek = await Trek.updateOne({ _id: req.body._id }, req.body).lean();
     return trek;
   };
 
