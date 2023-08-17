@@ -1,5 +1,10 @@
-// const Contact = mongoose.model("Contact", ContactSchema);
+import { Express } from 'express';
 
-export function getInfos(): any {
-  return { pong: 'it worked!' };
-}
+const InfoController = (app: Express) => {
+  const getInfos = async (): Promise<string> => {
+    return 'Servidor Funcionado!';
+  };
+  return { getInfos };
+};
+
+export default InfoController;

@@ -1,28 +1,30 @@
-import Fastify, { FastifyInstance } from 'fastify';
+import express, { Express } from 'express';
+import cors from 'cors';
+import { logger } from './logger/winston';
+import errorMiddleware from './middleware/error.middleware';
 import api from './api/api';
+import startMongo from './core/dataBase';
 
-const server: FastifyInstance = Fastify({
-  logger: {
-    transport: {
-      target: '@fastify/one-line-logger',
-    },
-    customLevels: {
-      foo: 35,
-      bar: 45,
-    },
-  },
+import configurations from './core/configurations';
+
+const app: Express = express();
+const port = configurations.PORT;
+
+startMongo(configurations.MONGO);
+
+app.use(
+  cors({
+    origin: configurations.APP.clients,
+    optionsSuccessStatus: 200,
+  })
+);
+
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(errorMiddleware);
+
+api(app);
+
+app.listen(port, () => {
+  logger.info(`Express server listening on port ${port}`);
 });
-const port = 3010;
-
-server.get('/', async () => {
-  return { hello: 'world 2 gfdgsg' };
-});
-
-const start = async () => {
-  await api(server);
-  server.listen({ port, host: '0.0.0.0' }, (err, address) => {
-    if (err) throw err;
-    console.log(`Server listening at ${address} : ${port}`);
-  });
-};
-start();

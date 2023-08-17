@@ -14,21 +14,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.13",
     "tsup": "^6.6.3",
     "tsx": "^3.12.5",
     "vitest": "^0.29.2"
   },
   "dependencies": {
-    "@fastify/cors": "^8.3.0",
-    "@fastify/helmet": "^11.0.0",
-    "@fastify/one-line-logger": "^1.2.0",
-    "@fastify/swagger": "^8.8.0",
-    "@fastify/swagger-ui": "^1.9.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "fastify": "^4.17.0",
-    "fastify-metrics": "^10.3.0",
-    "winston": "^3.8.2",
-    "zod": "^3.21.4"
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "mongoose": "^7.4.3",
+    "winston": "^3.8.2"
   }
 }
