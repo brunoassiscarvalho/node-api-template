@@ -13,6 +13,16 @@ const InfoApi = (app: Express) => {
       })
       .catch((e) => next(e));
   });
+
+  app.get(defaultPath+"/erro", async (req: Request, res: Response, next: NextFunction) => {
+    controller
+      .getInfosErro()
+      .then((result) => {
+        res.json(result);
+        next();
+      })
+      .catch((e) => next(e));
+  });
 };
 
 export default InfoApi;
