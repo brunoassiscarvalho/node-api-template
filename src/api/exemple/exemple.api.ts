@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction, Express } from 'express';
-import TrekController from './trek.controller';
+import ExempleController from './exemple.controller';
 
-const TrekApi = (app: Express) => {
-  const defaultPath = '/trek';
-  const controller = TrekController();
+const ExempleApi = (app: Express) => {
+  const defaultPath = '/exemple';
+  const controller = ExempleController();
   app.get(defaultPath, async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .getTreks()
+      .getExemples()
       .then((result) => {
         res.json(result);
         next();
@@ -16,7 +16,7 @@ const TrekApi = (app: Express) => {
 
   app.get(defaultPath+"/:id", async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .getTrekById(req)
+      .getExempleById(req)
       .then((result) => {
         res.json(result);
         next();
@@ -26,7 +26,7 @@ const TrekApi = (app: Express) => {
 
   app.post(defaultPath, async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .createTreks(req)
+      .createExemples(req)
       .then((result) => {
         res.json(result);
         next();
@@ -36,7 +36,7 @@ const TrekApi = (app: Express) => {
 
   app.put(defaultPath, async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .updateTreks(req)
+      .updateExemples(req)
       .then((result) => {
         res.json(result);
         next();
@@ -45,4 +45,4 @@ const TrekApi = (app: Express) => {
   });
 };
 
-export default TrekApi;
+export default ExempleApi;

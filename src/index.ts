@@ -8,7 +8,7 @@ import startMongo from './core/dataBase';
 import configurations from './core/configurations';
 
 const app: Express = express();
-const port = configurations.PORT;
+const port = configurations.APP.port;
 
 startMongo(configurations.MONGO);
 

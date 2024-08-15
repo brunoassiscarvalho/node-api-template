@@ -1,11 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
 const configurations = {
-  PORT: process.env.PORT || '3005',
   APP: {
     name: process.env.APP_NAME || 'Defina um nome para a aplicação',
     logoUrl: process.env.APP_LOGO_URL || '',
-    port: process.env.PORT || '',
+    port: process.env.PORT || '3005',
     clients: process.env.CLIENTS,
   },
   EMAIL: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
