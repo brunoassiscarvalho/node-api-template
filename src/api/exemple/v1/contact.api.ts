@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction, Express } from 'express';
-import ExempleController from './exemple.controller';
+import ContactController from './contact.controller';
 
-const ExempleApi = (app: Express) => {
-  const defaultPath = '/exemple';
-  const controller = ExempleController();
+const ContactApi = (app: Express) => {
+  const defaultPath = '/v1/contact';
+  const controller = ContactController();
   app.get(defaultPath, async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .getExemples()
+      .getContacts()
       .then((result) => {
         res.json(result);
         next();
@@ -16,7 +16,7 @@ const ExempleApi = (app: Express) => {
 
   app.get(defaultPath+"/:id", async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .getExempleById(req)
+      .getContactById(req)
       .then((result) => {
         res.json(result);
         next();
@@ -26,7 +26,7 @@ const ExempleApi = (app: Express) => {
 
   app.post(defaultPath, async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .createExemples(req)
+      .createContacts(req)
       .then((result) => {
         res.json(result);
         next();
@@ -36,7 +36,7 @@ const ExempleApi = (app: Express) => {
 
   app.put(defaultPath, async (req: Request, res: Response, next: NextFunction) => {
     controller
-      .updateExemples(req)
+      .updateContacts(req)
       .then((result) => {
         res.json(result);
         next();
@@ -45,4 +45,4 @@ const ExempleApi = (app: Express) => {
   });
 };
 
-export default ExempleApi;
+export default ContactApi;

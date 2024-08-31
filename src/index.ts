@@ -12,11 +12,12 @@ const port = configurations.APP.port;
 
 startMongo(configurations.MONGO);
 
+console.log(configurations.APP.clients)
 app.use(
   cors({
     origin: configurations.APP.clients,
     optionsSuccessStatus: 200,
-  })
+  })  
 );
 
 app.use(express.json({ limit: '50mb' }));
